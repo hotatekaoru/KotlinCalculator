@@ -21,6 +21,9 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled true
+    }
 }
 
 configurations {
@@ -38,7 +41,11 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
     implementation 'com.google.android.material:material:1.0.0'
 
+    // ktlint
     ktlint 'com.pinterest:ktlint:0.35.0'
+
+    // ViewModel and LiveData
+    implementation "android.arch.lifecycle:extensions:2.1.0"
 }
 
 task ktlint(type: JavaExec, group: "verification") {
