@@ -2,6 +2,7 @@ package com.hotatekaoru.kotlincalculator.viewmodel
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.hotatekaoru.kotlincalculator.extension.plus
 
 class CalculatorViewModel : ViewModel() {
 
@@ -12,6 +13,6 @@ class CalculatorViewModel : ViewModel() {
     var mainValueText = ObservableField<String>("")
 
     fun tapNumber(number: Number) {
-        mainValueText.set(mainValueText.get().plus(number.toString()))
+        mainValueText.plus<String>(number.toString())
     }
 }
