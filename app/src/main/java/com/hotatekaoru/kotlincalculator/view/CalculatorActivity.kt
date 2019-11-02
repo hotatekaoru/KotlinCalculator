@@ -1,7 +1,7 @@
 package com.hotatekaoru.kotlincalculator.view
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import com.hotatekaoru.kotlincalculator.R
 import kotlinx.android.synthetic.main.activity_calculator.*
 
