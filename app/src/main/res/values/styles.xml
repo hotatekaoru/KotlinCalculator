@@ -13,13 +13,13 @@
         <item name="android:textColor">@color/textPrimary</item>
         <item name="android:background">@color/backgroundKeyBoard</item>
         <item name="android:textSize">36sp</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:foreground">@drawable/ripple_keyboard_number</item>
     </style>
 
     <style name="KeyBoardFormulaButton">
         <item name="android:textColor">@color/textSecondary</item>
         <item name="android:background">@color/backgroundKeyBoard</item>
         <item name="android:textSize">24sp</item>
-        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:foreground">@drawable/ripple_keyboard_formula</item>
     </style>
 </resources>
