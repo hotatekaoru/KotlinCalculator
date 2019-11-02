@@ -1,237 +1,256 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".view.CalculatorActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:theme="@style/AppTheme">
-    </com.google.android.material.appbar.AppBarLayout>
+    <data>
+        <variable
+            name="viewmodel"
+            type="com.hotatekaoru.kotlincalculator.viewmodel.CalculatorViewModel" />
+    </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="40dp"
-        android:background="@color/backgroundPrimary">
+        tools:context=".view.CalculatorActivity">
 
-        <EditText
-            android:id="@+id/formulaEditText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="12dp"
-            android:layout_marginEnd="12dp"
-            android:textSize="40sp"
-            android:textColor="@color/textPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:inputType="text"
-            android:importantForAutofill="no"
-            tools:ignore="LabelFor" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="12dp"
-            android:textSize="20sp"
-            android:textColor="@color/textPrimary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/formulaEditText" />
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:theme="@style/AppTheme" />
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="320dp"
-            android:background="@color/backgroundKeyBoard"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
+            android:layout_height="match_parent"
+            android:layout_marginTop="40dp"
+            android:background="@color/backgroundPrimary">
 
-            <androidx.constraintlayout.widget.Guideline
-                android:id="@+id/vertical_keyboard_guideline"
-                android:layout_width="2dp"
+            <EditText
+                android:id="@+id/mainValueEditText"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:background="@color/backgroundPrimary"
-                app:layout_constraintGuide_begin="288dp" />
-
-            <!-- 数字（0〜9）と . = のボタン -->
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="0dp"
-                android:layout_height="0dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@+id/vertical_keyboard_guideline"
-                app:layout_constraintRight_toRightOf="@+id/vertical_keyboard_guideline"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/seven" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/eight" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/nine" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/four" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/five" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/six" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/one" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/two" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/three" />
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/zero" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/dot" />
-
-                    <Button
-                        style="@style/KeyBoardNumberButton"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:text="@string/equal" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <!-- + - × ÷ 戻る ボタン -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:orientation="vertical"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="12dp"
+                android:textSize="40sp"
+                android:textColor="@color/textPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintLeft_toLeftOf="@+id/vertical_keyboard_guideline"
-                app:layout_constraintStart_toEndOf="@+id/linearLayout">
+                app:layout_constraintTop_toTopOf="parent"
+                android:inputType="text"
+                android:text="@={viewmodel.mainValueText}"
+                android:importantForAutofill="no"
+                tools:ignore="LabelFor" />
 
-                <Button
-                    style="@style/KeyBoardFormulaButton"
-                    android:layout_width="match_parent"
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="12dp"
+                android:textSize="20sp"
+                android:textColor="@color/textPrimary"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/mainValueEditText" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="320dp"
+                android:background="@color/backgroundKeyBoard"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+                <androidx.constraintlayout.widget.Guideline
+                    android:id="@+id/vertical_keyboard_guideline"
+                    android:layout_width="2dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@color/backgroundPrimary"
+                    app:layout_constraintGuide_begin="288dp" />
+
+                <!-- 数字（0〜9）と . = のボタン -->
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="0dp"
                     android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/clear" />
+                    android:orientation="vertical"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/vertical_keyboard_guideline"
+                    app:layout_constraintRight_toRightOf="@+id/vertical_keyboard_guideline"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
 
-                <Button
-                    style="@style/KeyBoardFormulaButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/divide" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
 
-                <Button
-                    style="@style/KeyBoardFormulaButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/multiple" />
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/seven"
+                            android:onClick="@{() -> viewmodel.tapNumber(7)}" />
 
-                <Button
-                    style="@style/KeyBoardFormulaButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/minus" />
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/eight"
+                            android:onClick="@{() -> viewmodel.tapNumber(8)}" />
 
-                <Button
-                    style="@style/KeyBoardFormulaButton"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:text="@string/plus" />
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/nine"
+                            android:onClick="@{() -> viewmodel.tapNumber(9)}" />
+                    </LinearLayout>
 
-            </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/four"
+                            android:onClick="@{() -> viewmodel.tapNumber(4)}" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/five"
+                            android:onClick="@{() -> viewmodel.tapNumber(5)}" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/six"
+                            android:onClick="@{() -> viewmodel.tapNumber(6)}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/one"
+                            android:onClick="@{() -> viewmodel.tapNumber(1)}" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/two"
+                            android:onClick="@{() -> viewmodel.tapNumber(2)}" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/three"
+                            android:onClick="@{() -> viewmodel.tapNumber(3)}" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/zero"
+                            android:onClick="@{() -> viewmodel.tapNumber(0)}" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/dot" />
+
+                        <Button
+                            style="@style/KeyBoardNumberButton"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:text="@string/equal" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <!-- + - × ÷ 戻る ボタン -->
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintLeft_toLeftOf="@+id/vertical_keyboard_guideline"
+                    app:layout_constraintStart_toEndOf="@+id/linearLayout">
+
+                    <Button
+                        style="@style/KeyBoardFormulaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/clear" />
+
+                    <Button
+                        style="@style/KeyBoardFormulaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/divide" />
+
+                    <Button
+                        style="@style/KeyBoardFormulaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/multiple" />
+
+                    <Button
+                        style="@style/KeyBoardFormulaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/minus" />
+
+                    <Button
+                        style="@style/KeyBoardFormulaButton"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/plus" />
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
