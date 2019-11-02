@@ -35,7 +35,6 @@
                 android:textColor="@color/textPrimary"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                android:inputType="text"
                 android:text="@={viewmodel.mainValueText}"
                 android:importantForAutofill="no"
                 tools:ignore="LabelFor" />
@@ -48,6 +47,7 @@
                 android:layout_marginEnd="12dp"
                 android:textSize="20sp"
                 android:textColor="@color/textPrimary"
+                android:text="@={viewmodel.supplementaryValueText}"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/mainValueTextView" />
 
@@ -191,14 +191,16 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="@string/dot" />
+                            android:text="@string/dot"
+                            android:onClick="@{() -> viewmodel.tapDot()}" />
 
                         <Button
                             style="@style/KeyBoardNumberButton"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:text="@string/equal" />
+                            android:text="@string/equal"
+                            android:onClick="@{() -> viewmodel.tapEqual()}" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -216,35 +218,40 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/clear" />
+                        android:text="@string/clear"
+                        android:onClick="@{() -> viewmodel.tapClear()}"/>
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/divide" />
+                        android:text="@string/divide"
+                        android:onClick="@{() -> viewmodel.tapDivide()}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/multiple" />
+                        android:text="@string/multiple"
+                        android:onClick="@{() -> viewmodel.tapMultiple()}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/minus" />
+                        android:text="@string/minus"
+                        android:onClick="@{() -> viewmodel.tapMinus()}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/plus" />
+                        android:text="@string/plus"
+                        android:onClick="@{() -> viewmodel.tapPlus()}" />
 
                 </LinearLayout>
 

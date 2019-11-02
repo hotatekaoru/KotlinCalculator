@@ -2,6 +2,8 @@ package com.hotatekaoru.kotlincalculator.viewmodel
 
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
+import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
+import com.hotatekaoru.kotlincalculator.extension.minusLastCharacter
 import com.hotatekaoru.kotlincalculator.extension.plus
 
 class CalculatorViewModel : ViewModel() {
@@ -12,7 +14,51 @@ class CalculatorViewModel : ViewModel() {
      */
     var mainValueText = ObservableField<String>("")
 
+    /**
+     * メインテキストの下に表示するテキスト
+     * 計算中に値を表示し、計算後（=を押されたあと）は空にする
+     */
+    var supplementaryValueText = ObservableField<String>("")
+
     fun tapNumber(number: Number) {
-        mainValueText.plus<String>(number.toString())
+        mainValueText.plus(number.toString())
+    }
+
+    fun tapDot() {
+        mainValueText.plus(".")
+    }
+
+    fun tapPlus() {
+        tapOperation(OperationTypeEnum.PLUS)
+    }
+
+    fun tapMinus() {
+        tapOperation(OperationTypeEnum.MINUS)
+    }
+
+    fun tapMultiple() {
+        tapOperation(OperationTypeEnum.MULTIPLE)
+    }
+
+    fun tapDivide() {
+        tapOperation(OperationTypeEnum.DIVIDE)
+    }
+
+    fun tapClear() {
+        mainValueText.minusLastCharacter()
+    }
+
+    fun tapEqual() {
+        mainValueText.set(calcurateValue().toString())
+        supplementaryValueText.set("")
+    }
+
+    private fun tapOperation(enum: OperationTypeEnum) {
+        mainValueText.plus(enum.string)
+    }
+
+    private fun calcurateValue(): Double {
+        // TODO: 計算を行う
+        return 1.23
     }
 }
