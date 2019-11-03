@@ -29,26 +29,48 @@ class CalculatorViewModel : ViewModel() {
     var calculating = ObservableBoolean(false)
 
     fun tapNumber(number: Number) {
+        // TODO: calculatingがtrueの場合、mainValueTextの末尾に入力された数字を加える
+        // TODO: calculatingがfalseの場合、mainValueTextを入力された数字に入れ替える
         constructFormula(number.toString())
     }
 
     fun tapDot() {
+        // TODO: mainValueTextの末尾が.の場合、return
+        // TODO: 上記以外の場合、末尾に.を加える
         constructFormula(".")
     }
 
     fun tapPlus() {
+        // TODO: mainValueTextが空の場合、return
+        // TODO: mainValueTextの末尾が.の場合、return
+        // TODO: mainValueTextが-のみの場合、空に更新してreturn
+        // TODO: mainValueTextの末尾が四則演算子の場合、+に入れ替える
+        // TODO: 上記以外の場合、mainValueTextの末尾に+を追加
         constructFormula(OperationTypeEnum.PLUS.string)
     }
 
     fun tapMinus() {
+        // TODO: mainValueTextの末尾が.の場合、return
+        // TODO: mainValueTextの末尾が四則演算子の場合、-に入れ替える
+        // TODO: 上記以外の場合、mainValueTextの末尾に-を追加
         constructFormula(OperationTypeEnum.MINUS.string)
     }
 
     fun tapMultiple() {
+        // TODO: mainValueTextが空の場合、return
+        // TODO: mainValueTextの末尾が.の場合、return
+        // TODO: mainValueTextが-のみの場合、空に更新してreturn
+        // TODO: mainValueTextの末尾が四則演算子の場合、×に入れ替える
+        // TODO: 上記以外の場合、mainValueTextの末尾に×を追加
         constructFormula(OperationTypeEnum.MULTIPLE.string)
     }
 
     fun tapDivide() {
+        // TODO: mainValueTextが空の場合、return
+        // TODO: mainValueTextの末尾が.の場合、return
+        // TODO: mainValueTextが-のみの場合、空に更新してreturn
+        // TODO: mainValueTextの末尾が四則演算子の場合、÷に入れ替える
+        // TODO: 上記以外の場合、mainValueTextの末尾に÷を追加
         constructFormula(OperationTypeEnum.DIVIDE.string)
     }
 
@@ -61,7 +83,11 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun tapEqual() {
+        // TODO: mainValueTextが空の場合、return
         calculating.set(false)
+        // TODO: mainValueTextの末尾が.の場合、末尾に0をつけて計算する
+        // TODO: mainValueTextの末尾が四則演算子の場合、末尾の四則演算子を削除して計算する
+        // TODO: 上記以外の場合、mainValueTextの末尾に÷を追加
         mainValueText.set(calculateValue().toString())
         supplementaryValueText.set("")
     }
