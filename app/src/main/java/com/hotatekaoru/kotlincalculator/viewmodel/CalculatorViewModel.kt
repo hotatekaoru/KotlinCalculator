@@ -20,28 +20,35 @@ class CalculatorViewModel : ViewModel() {
      */
     var supplementaryValueText = ObservableField<String>("")
 
+    /**
+     * 計算中かどうかのフラグ
+     * = をクリックしたあと（計算後）の場合、次にタップされた値でmainValueTextを初期化する
+     * 計算中の場合、次にタップされた値をmainValueTextの末尾にくっつける
+     */
+    private var calculating = false
+
     fun tapNumber(number: Number) {
-        mainValueText.plus(number.toString())
+        constructFormula(number.toString())
     }
 
     fun tapDot() {
-        mainValueText.plus(".")
+        constructFormula(".")
     }
 
     fun tapPlus() {
-        tapOperation(OperationTypeEnum.PLUS)
+        constructFormula(OperationTypeEnum.PLUS.string)
     }
 
     fun tapMinus() {
-        tapOperation(OperationTypeEnum.MINUS)
+        constructFormula(OperationTypeEnum.MINUS.string)
     }
 
     fun tapMultiple() {
-        tapOperation(OperationTypeEnum.MULTIPLE)
+        constructFormula(OperationTypeEnum.MULTIPLE.string)
     }
 
     fun tapDivide() {
-        tapOperation(OperationTypeEnum.DIVIDE)
+        constructFormula(OperationTypeEnum.DIVIDE.string)
     }
 
     fun tapClear() {
@@ -49,12 +56,22 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun tapEqual() {
+        calculating = false
         mainValueText.set(calcurateValue().toString())
         supplementaryValueText.set("")
     }
 
-    private fun tapOperation(enum: OperationTypeEnum) {
-        mainValueText.plus(enum.string)
+    /**
+     * 入力中の数値・計算式を配列に追加する（TODO）
+     * 計算式として誤っている場合は、この処理を呼び出さない
+     */
+    private fun constructFormula(string: String) {
+        if (calculating) {
+            mainValueText.plus(string)
+        } else {
+            mainValueText.set(string)
+            calculating = true
+        }
     }
 
     private fun calcurateValue(): Double {
