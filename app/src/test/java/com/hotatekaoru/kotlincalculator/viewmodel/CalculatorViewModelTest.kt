@@ -32,10 +32,24 @@ class CalculatorViewModelTest {
     }
 
     @Test
+    fun `tapDot() mainValueTextが空の場合、mainValueTextが小数点のみに更新されること`() {
+        viewModel.mainValueText.set("")
+        viewModel.tapDot()
+        Assertions.assertEquals(".", viewModel.mainValueText.get())
+    }
+
+    @Test
     fun `tapDot() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
         viewModel.tapDot()
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
+    }
+
+    @Test
+    fun `tapDot() mainValueTextの最後の数字列に小数点が含まれる場合、mainValueTextが更新されないこと`() {
+        viewModel.mainValueText.set("1.2")
+        viewModel.tapDot()
+        Assertions.assertEquals("1.2", viewModel.mainValueText.get())
     }
 
     @Test

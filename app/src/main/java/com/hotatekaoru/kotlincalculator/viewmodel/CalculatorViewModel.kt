@@ -30,7 +30,7 @@ class CalculatorViewModel : ViewModel() {
     var calculating = ObservableBoolean(false)
 
     /**
-     * +をタップされた際の処理
+     * 数字をタップされた際の処理
      * calculatingがtrueの場合、mainValueTextの末尾に入力された数字を加える
      * calculatingがfalseの場合、mainValueTextを入力された数字に入れ替える
      */
@@ -45,11 +45,15 @@ class CalculatorViewModel : ViewModel() {
 
     /**
      * 小数点をタップされた際の処理
-     * mainValueTextの末尾が.の場合、return
+     * mainValueTextの四則演算子以降に小数点が既にある場合、return
      * 上記以外の場合、末尾に.を加える
      */
     fun tapDot() {
-        if (mainValueText.takeLast(1) == ".") { return }
+        mainValueText.get()?.let { text ->
+            val operationIndex = text.lastIndexOfAny(OperationTypeEnum.values().map { it.string })
+            if (text.substring(operationIndex + 1).contains(".")) { return }
+        }
+
         mainValueText.plus(".")
         calculating.set(true)
     }
