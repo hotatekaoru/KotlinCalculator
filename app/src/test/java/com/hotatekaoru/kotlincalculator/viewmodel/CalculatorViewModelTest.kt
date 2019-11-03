@@ -84,24 +84,24 @@ class CalculatorViewModelTest {
     }
 
     @Test
-    fun `tapMinus() mainValueTextの末尾が小数点の場合、末尾の四則演算子が-に入れ替わること`() {
+    fun `tapMinus() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
         viewModel.tapMinus()
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
     }
 
     @Test
-    fun `tapMinus() mainValueTextの末尾が四則演算子の場合、mainValueTextが更新されないこと`() {
-        viewModel.mainValueText.set("1/")
+    fun `tapMinus() mainValueTextの末尾が四則演算子の場合、末尾の四則演算子が-に入れ替わること`() {
+        viewModel.mainValueText.set("1÷")
         viewModel.tapMinus()
         Assertions.assertEquals("1-", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMinus() 上記以外の場合、mainValueTextの末尾に-が追加されること`() {
-        viewModel.mainValueText.set("1.")
+        viewModel.mainValueText.set("1")
         viewModel.tapMinus()
-        Assertions.assertEquals("1.", viewModel.mainValueText.get())
+        Assertions.assertEquals("1-", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
 
