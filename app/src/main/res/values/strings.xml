@@ -18,4 +18,5 @@
     <string name="multiple">×</string>
     <string name="divide">÷</string>
     <string name="clear">C</string>
+    <string name="delete">⌫</string>
 </resources>

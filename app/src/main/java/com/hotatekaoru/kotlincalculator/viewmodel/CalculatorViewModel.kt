@@ -1,5 +1,6 @@
 package com.hotatekaoru.kotlincalculator.viewmodel
 
+import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
 import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
@@ -25,7 +26,7 @@ class CalculatorViewModel : ViewModel() {
      * = をクリックしたあと（計算後）の場合、次にタップされた値でmainValueTextを初期化する
      * 計算中の場合、次にタップされた値をmainValueTextの末尾にくっつける
      */
-    private var calculating = false
+    var calculating = ObservableBoolean(false)
 
     fun tapNumber(number: Number) {
         constructFormula(number.toString())
@@ -52,12 +53,16 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun tapClear() {
-        mainValueText.minusLastCharacter()
+        if (calculating.get()) {
+            mainValueText.minusLastCharacter()
+        } else {
+            mainValueText.set("")
+        }
     }
 
     fun tapEqual() {
-        calculating = false
-        mainValueText.set(calcurateValue().toString())
+        calculating.set(false)
+        mainValueText.set(calculateValue().toString())
         supplementaryValueText.set("")
     }
 
@@ -66,15 +71,15 @@ class CalculatorViewModel : ViewModel() {
      * 計算式として誤っている場合は、この処理を呼び出さない
      */
     private fun constructFormula(string: String) {
-        if (calculating) {
+        if (calculating.get()) {
             mainValueText.plus(string)
         } else {
             mainValueText.set(string)
-            calculating = true
+            calculating.set(true)
         }
     }
 
-    private fun calcurateValue(): Double {
+    private fun calculateValue(): Double {
         // TODO: 計算を行う
         return 1.23
     }
