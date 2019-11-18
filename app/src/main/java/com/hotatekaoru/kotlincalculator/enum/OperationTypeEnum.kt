@@ -1,6 +1,6 @@
 package com.hotatekaoru.kotlincalculator.enum
 
-enum class OperationTypeEnum(val string: String) {
+enum class OperationTypeEnum(val label: String) {
     PLUS("+"),
     MINUS("-"),
     MULTIPLE("×"),
