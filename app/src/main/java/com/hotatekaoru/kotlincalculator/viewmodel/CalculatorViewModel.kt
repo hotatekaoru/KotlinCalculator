@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModel
 import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
 import com.hotatekaoru.kotlincalculator.extension.minusLastCharacter
 import com.hotatekaoru.kotlincalculator.extension.plus
+import com.hotatekaoru.kotlincalculator.extension.takeLast
 
 class CalculatorViewModel : ViewModel() {
 
@@ -28,28 +29,120 @@ class CalculatorViewModel : ViewModel() {
      */
     var calculating = ObservableBoolean(false)
 
+    /**
+     * 数字をタップされた際の処理
+     * calculatingがtrueの場合、mainValueTextの末尾に入力された数字を加える
+     * calculatingがfalseの場合、mainValueTextを入力された数字に入れ替える
+     */
     fun tapNumber(number: Number) {
-        constructFormula(number.toString())
+        if (calculating.get()) {
+            mainValueText.plus(number.toString())
+        } else {
+            mainValueText.set(number.toString())
+            calculating.set(true)
+        }
     }
 
+    /**
+     * 小数点をタップされた際の処理
+     * mainValueTextの四則演算子以降に小数点が既にある場合、return
+     * 上記以外の場合、末尾に.を加える
+     */
     fun tapDot() {
-        constructFormula(".")
+        mainValueText.get()?.let { text ->
+            val operationIndex = text.lastIndexOfAny(OperationTypeEnum.values().map { it.string })
+            if (text.substring(operationIndex + 1).contains(".")) { return }
+        }
+
+        mainValueText.plus(".")
+        calculating.set(true)
     }
 
+    /**
+     * +をタップされた際の処理
+     * mainValueTextが空の場合、return
+     * mainValueTextの末尾が.の場合、return
+     * mainValueTextが-のみの場合、空に更新してreturn
+     * mainValueTextの末尾が四則演算子の場合、+に入れ替える
+     * 上記以外の場合、mainValueTextの末尾に+を追加
+     */
     fun tapPlus() {
-        constructFormula(OperationTypeEnum.PLUS.string)
+        if (mainValueText.get().isNullOrBlank()) { return }
+        if (mainValueText.takeLast(1) == ".") { return }
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.string)) {
+            mainValueText.set("")
+            calculating.set(false)
+            return
+        }
+
+        if (OperationTypeEnum.values().any { it.string == mainValueText.takeLast(1) }) {
+            mainValueText.minusLastCharacter()
+        }
+        mainValueText.plus(OperationTypeEnum.PLUS.string)
+        calculating.set(true)
     }
 
+    /**
+     * -をタップされた際の処理
+     * mainValueTextの末尾が.の場合、return
+     * mainValueTextの末尾が四則演算子の場合、-に入れ替える
+     * 上記以外の場合、mainValueTextの末尾に-を追加
+     */
     fun tapMinus() {
-        constructFormula(OperationTypeEnum.MINUS.string)
+        if (mainValueText.takeLast(1) == ".") { return }
+        if (OperationTypeEnum.values().any { it.string == mainValueText.takeLast(1) }) {
+            mainValueText.minusLastCharacter()
+        }
+        mainValueText.plus(OperationTypeEnum.MINUS.string)
+        calculating.set(true)
     }
 
+    /**
+     * ×をタップされた際の処理
+     * mainValueTextが空の場合、return
+     * mainValueTextの末尾が.の場合、return
+     * mainValueTextが-のみの場合、空に更新してreturn
+     * mainValueTextの末尾が四則演算子の場合、×に入れ替える
+     * 上記以外の場合、mainValueTextの末尾に×を追加
+     */
     fun tapMultiple() {
-        constructFormula(OperationTypeEnum.MULTIPLE.string)
+        if (mainValueText.get().isNullOrBlank()) { return }
+        if (mainValueText.takeLast(1) == ".") { return }
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.string)) {
+            mainValueText.set("")
+            calculating.set(false)
+            return
+        }
+
+        if (OperationTypeEnum.values().any { it.string == mainValueText.takeLast(1) }) {
+            mainValueText.minusLastCharacter()
+        }
+        mainValueText.plus(OperationTypeEnum.MULTIPLE.string)
+        calculating.set(true)
     }
 
+    /**
+     * ÷をタップされた際の処理
+     * mainValueTextが空の場合、return
+     * mainValueTextの末尾が.の場合、return
+     * mainValueTextが-のみの場合、空に更新してreturn
+     * mainValueTextの末尾が四則演算子の場合、÷に入れ替える
+     * 上記以外の場合、mainValueTextの末尾に÷を追加
+     */
     fun tapDivide() {
-        constructFormula(OperationTypeEnum.DIVIDE.string)
+        if (mainValueText.get().isNullOrBlank()) { return }
+        if (mainValueText.takeLast(1) == ".") { return }
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.string)) {
+            mainValueText.set("")
+            calculating.set(false)
+            return
+        }
+
+        if (OperationTypeEnum.values().any { it.string == mainValueText.takeLast(1) }) {
+            mainValueText.minusLastCharacter()
+        }
+        mainValueText.plus(OperationTypeEnum.DIVIDE.string)
+        calculating.set(true)
     }
 
     fun tapClear() {
@@ -61,22 +154,13 @@ class CalculatorViewModel : ViewModel() {
     }
 
     fun tapEqual() {
+        // TODO: mainValueTextが空の場合、return
         calculating.set(false)
+        // TODO: mainValueTextの末尾が.の場合、末尾に0をつけて計算する
+        // TODO: mainValueTextの末尾が四則演算子の場合、末尾の四則演算子を削除して計算する
+        // TODO: 上記以外の場合、mainValueTextの末尾に÷を追加
         mainValueText.set(calculateValue().toString())
         supplementaryValueText.set("")
-    }
-
-    /**
-     * 入力中の数値・計算式を配列に追加する（TODO）
-     * 計算式として誤っている場合は、この処理を呼び出さない
-     */
-    private fun constructFormula(string: String) {
-        if (calculating.get()) {
-            mainValueText.plus(string)
-        } else {
-            mainValueText.set(string)
-            calculating.set(true)
-        }
     }
 
     private fun calculateValue(): Double {

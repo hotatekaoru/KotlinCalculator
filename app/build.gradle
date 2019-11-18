@@ -46,6 +46,13 @@ dependencies {
 
     // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:2.1.0"
+
+    // jUnit5
+    // https://www.baeldung.com/junit-5-kotlin
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-params:5.5.2'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
+    testImplementation 'org.junit.platform:junit-platform-launcher:1.5.2'
 }
 
 task ktlint(type: JavaExec, group: "verification") {
