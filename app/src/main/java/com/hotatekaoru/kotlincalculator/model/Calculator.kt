@@ -9,6 +9,9 @@ class Calculator(private val formula: String) {
     private var isLastCharOperation = true
 
     fun call(): Double {
+        // 初期化する
+        init()
+
         // formulaを、numberStringListとoperationListに格納
         setFormulaToLists()
 
@@ -20,6 +23,13 @@ class Calculator(private val formula: String) {
 
         // 足し算・引き算を実施
         return calcAddAndMinus()
+    }
+
+    private fun init() {
+        numberStringList.clear()
+        numberList.clear()
+        operationList.clear()
+        isLastCharOperation = true
     }
 
     /**
