@@ -28,35 +28,38 @@ class Calculator(private val formula: String) {
      */
     private fun setFormulaToLists() {
         formula.forEach { char ->
-            // TODO: ここはもっといい書き方があるのかもしれない
-            if (char in '0'..'9') {
-                if (isLastCharOperation) {
-                    numberStringList.add(char.toString())
-                } else {
-                    val newNumber = "${numberList.last()}$char"
-                    numberStringList.removeAt(numberList.lastIndex)
-                    numberStringList.add(newNumber)
+            when {
+                char in '0'..'9' -> {
+                    if (isLastCharOperation) {
+                        numberStringList.add(char.toString())
+                    } else {
+                        val newNumber = "${numberStringList.last()}$char"
+                        numberStringList.removeAt(numberStringList.lastIndex)
+                        numberStringList.add(newNumber)
+                    }
+                    isLastCharOperation = false
                 }
-                isLastCharOperation = false
-            } else if (char.toString() == ".") {
-                if (isLastCharOperation) {
-                    numberStringList.add("0.")
-                } else {
-                    val newNumber = "${numberStringList.last()}$char"
-                    numberStringList.removeAt(numberStringList.lastIndex)
-                    numberStringList.add(newNumber)
+                char.toString() == "." -> {
+                    if (isLastCharOperation) {
+                        numberStringList.add("0.")
+                    } else {
+                        val newNumber = "${numberStringList.last()}$char"
+                        numberStringList.removeAt(numberStringList.lastIndex)
+                        numberStringList.add(newNumber)
+                    }
+                    isLastCharOperation = false
                 }
-                isLastCharOperation = false
-            } else {
-                // 最初にマイナスから始まる場合は、最初に0があたかもあるかのようにする。
-                // これにより、numberList[0]のあとに、operationList[0]がある状態を作る
-                if (OperationTypeEnum.MINUS.label == char.toString() && numberStringList.isEmpty()) {
-                    numberStringList.add("0")
+                else -> {
+                    // 最初にマイナスから始まる場合は、最初に0があたかもあるかのようにする。
+                    // これにより、numberList[0]のあとに、operationList[0]がある状態を作る
+                    if (OperationTypeEnum.MINUS.label == char.toString() && numberStringList.isEmpty()) {
+                        numberStringList.add("0")
+                    }
+                    OperationTypeEnum.values().firstOrNull { it.label == char.toString() }?.let {
+                        operationList.add(it)
+                    }
+                    isLastCharOperation = true
                 }
-                OperationTypeEnum.values().firstOrNull { it.label == char.toString() }?.let {
-                    operationList.add(it)
-                }
-                isLastCharOperation = true
             }
         }
     }
