@@ -60,6 +60,18 @@ class CalculatorViewModel : ViewModel() {
     }
 
     /**
+     * 四則演算子をタップされた際の処理
+     */
+    fun tapOperation(operationType: OperationType) {
+        when (operationType) {
+            OperationType.PLUS -> { tapPlus() }
+            OperationType.MINUS -> { tapMinus() }
+            OperationType.MULTIPLE -> { tapMultiple() }
+            OperationType.DIVIDE -> { tapDivide() }
+        }
+    }
+
+    /**
      * +をタップされた際の処理
      * mainValueTextが空の場合、return
      * mainValueTextの末尾が.の場合、return
@@ -67,7 +79,7 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、+に入れ替える
      * 上記以外の場合、mainValueTextの末尾に+を追加
      */
-    fun tapPlus() {
+    private fun tapPlus() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
@@ -89,7 +101,7 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、-に入れ替える
      * 上記以外の場合、mainValueTextの末尾に-を追加
      */
-    fun tapMinus() {
+    private fun tapMinus() {
         if (mainValueText.takeLast(1) == ".") { return }
         if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
@@ -106,7 +118,7 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、×に入れ替える
      * 上記以外の場合、mainValueTextの末尾に×を追加
      */
-    fun tapMultiple() {
+    private fun tapMultiple() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
@@ -130,7 +142,7 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、÷に入れ替える
      * 上記以外の場合、mainValueTextの末尾に÷を追加
      */
-    fun tapDivide() {
+    private fun tapDivide() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {

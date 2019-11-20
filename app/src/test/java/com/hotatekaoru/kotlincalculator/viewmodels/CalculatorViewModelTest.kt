@@ -1,5 +1,6 @@
 package com.hotatekaoru.kotlincalculator.viewmodels
 
+import com.hotatekaoru.kotlincalculator.enums.OperationType
 import org.junit.Before
 import org.junit.Test
 import org.junit.jupiter.api.Assertions
@@ -63,28 +64,28 @@ class CalculatorViewModelTest {
     @Test
     fun `tapPlus() mainValueTextが空の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("")
-        viewModel.tapPlus()
+        viewModel.tapOperation(OperationType.PLUS)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapPlus() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
-        viewModel.tapPlus()
+        viewModel.tapOperation(OperationType.PLUS)
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapPlus() mainValueTextが-のみの場合、mainValueTextが空に更新されること`() {
         viewModel.mainValueText.set("-")
-        viewModel.tapPlus()
+        viewModel.tapOperation(OperationType.PLUS)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapPlus() mainValueTextの末尾が四則演算子の場合、末尾の四則演算子が+に入れ替わること`() {
         viewModel.mainValueText.set("1-")
-        viewModel.tapPlus()
+        viewModel.tapOperation(OperationType.PLUS)
         Assertions.assertEquals("1+", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
@@ -92,7 +93,7 @@ class CalculatorViewModelTest {
     @Test
     fun `tapPlus() 上記以外の場合、mainValueTextの末尾に+を追加こと`() {
         viewModel.mainValueText.set("1")
-        viewModel.tapPlus()
+        viewModel.tapOperation(OperationType.PLUS)
         Assertions.assertEquals("1+", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
@@ -100,21 +101,21 @@ class CalculatorViewModelTest {
     @Test
     fun `tapMinus() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
-        viewModel.tapMinus()
+        viewModel.tapOperation(OperationType.MINUS)
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMinus() mainValueTextの末尾が四則演算子の場合、末尾の四則演算子が-に入れ替わること`() {
         viewModel.mainValueText.set("1÷")
-        viewModel.tapMinus()
+        viewModel.tapOperation(OperationType.MINUS)
         Assertions.assertEquals("1-", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMinus() 上記以外の場合、mainValueTextの末尾に-が追加されること`() {
         viewModel.mainValueText.set("1")
-        viewModel.tapMinus()
+        viewModel.tapOperation(OperationType.MINUS)
         Assertions.assertEquals("1-", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
@@ -122,42 +123,42 @@ class CalculatorViewModelTest {
     @Test
     fun `tapMultiple() mainValueTextが空の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMultiple() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMultiple() mainValueTextが-のみの場合、mainValueTextが空に更新されること`() {
         viewModel.mainValueText.set("-")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMultiple() mainValueTextが四則演算子の場合、mainValueTextが空に更新されること`() {
         viewModel.mainValueText.set("-")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMultiple() mainValueTextが空の場合、末尾の四則演算子が×に入れ替わること`() {
         viewModel.mainValueText.set("1+")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("1×", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapMultiple() 上記以外の場合、mainValueTextの末尾に×が追加されること`() {
         viewModel.mainValueText.set("1")
-        viewModel.tapMultiple()
+        viewModel.tapOperation(OperationType.MULTIPLE)
         Assertions.assertEquals("1×", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
@@ -165,35 +166,35 @@ class CalculatorViewModelTest {
     @Test
     fun `tapDivide() mainValueTextの末尾が小数点の場合、mainValueTextが更新されないこと`() {
         viewModel.mainValueText.set("1.")
-        viewModel.tapDivide()
+        viewModel.tapOperation(OperationType.DIVIDE)
         Assertions.assertEquals("1.", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapDivide() mainValueTextが-のみの場合、mainValueTextが空に更新されること`() {
         viewModel.mainValueText.set("-")
-        viewModel.tapDivide()
+        viewModel.tapOperation(OperationType.DIVIDE)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapDivide() mainValueTextが四則演算子の場合、mainValueTextが空に更新されること`() {
         viewModel.mainValueText.set("-")
-        viewModel.tapDivide()
+        viewModel.tapOperation(OperationType.DIVIDE)
         Assertions.assertEquals("", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapDivide() mainValueTextが空の場合、末尾の四則演算子が÷に入れ替わること`() {
         viewModel.mainValueText.set("1-")
-        viewModel.tapDivide()
+        viewModel.tapOperation(OperationType.DIVIDE)
         Assertions.assertEquals("1÷", viewModel.mainValueText.get())
     }
 
     @Test
     fun `tapDivide() 上記以外の場合、mainValueTextの末尾に÷が追加されること`() {
         viewModel.mainValueText.set("1")
-        viewModel.tapDivide()
+        viewModel.tapOperation(OperationType.DIVIDE)
         Assertions.assertEquals("1÷", viewModel.mainValueText.get())
         Assertions.assertTrue(viewModel.calculating.get())
     }
