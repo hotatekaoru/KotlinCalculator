@@ -6,7 +6,6 @@ class Calculator(private val formula: String) {
     private val numberStringList = ArrayList<String>()
     private val numberList = ArrayList<Double>()
     private val operationList = ArrayList<OperationTypeEnum>()
-    private var isLastCharOperation = true
 
     fun call(): Double {
         // 初期化する
@@ -29,7 +28,6 @@ class Calculator(private val formula: String) {
         numberStringList.clear()
         numberList.clear()
         operationList.clear()
-        isLastCharOperation = true
     }
 
     /**
@@ -37,6 +35,9 @@ class Calculator(private val formula: String) {
      * 計算式部分をoperationListに格納
      */
     private fun setFormulaToLists() {
+        // forEach内で、最後に扱った文字列が四則演算である場合true
+        var isLastCharOperation = true
+
         formula.forEach { char ->
             when {
                 char in '0'..'9' -> {
