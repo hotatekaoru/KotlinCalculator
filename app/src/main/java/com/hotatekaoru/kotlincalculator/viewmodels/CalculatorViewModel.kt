@@ -1,13 +1,13 @@
-package com.hotatekaoru.kotlincalculator.viewmodel
+package com.hotatekaoru.kotlincalculator.viewmodels
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
-import com.hotatekaoru.kotlincalculator.extension.minusLastCharacter
-import com.hotatekaoru.kotlincalculator.extension.plus
-import com.hotatekaoru.kotlincalculator.extension.takeLast
-import com.hotatekaoru.kotlincalculator.model.Calculator
+import com.hotatekaoru.kotlincalculator.enums.OperationType
+import com.hotatekaoru.kotlincalculator.extensions.minusLastCharacter
+import com.hotatekaoru.kotlincalculator.extensions.plus
+import com.hotatekaoru.kotlincalculator.extensions.takeLast
+import com.hotatekaoru.kotlincalculator.models.Calculator
 
 class CalculatorViewModel : ViewModel() {
 
@@ -51,12 +51,24 @@ class CalculatorViewModel : ViewModel() {
      */
     fun tapDot() {
         mainValueText.get()?.let { text ->
-            val operationIndex = text.lastIndexOfAny(OperationTypeEnum.values().map { it.label })
+            val operationIndex = text.lastIndexOfAny(OperationType.values().map { it.label })
             if (text.substring(operationIndex + 1).contains(".")) { return }
         }
 
         mainValueText.plus(".")
         calculating.set(true)
+    }
+
+    /**
+     * 四則演算子をタップされた際の処理
+     */
+    fun tapOperation(operationType: OperationType) {
+        when (operationType) {
+            OperationType.PLUS -> { tapPlus() }
+            OperationType.MINUS -> { tapMinus() }
+            OperationType.MULTIPLE -> { tapMultiple() }
+            OperationType.DIVIDE -> { tapDivide() }
+        }
     }
 
     /**
@@ -67,19 +79,19 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、+に入れ替える
      * 上記以外の場合、mainValueTextの末尾に+を追加
      */
-    fun tapPlus() {
+    private fun tapPlus() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
-        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.label)) {
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
             return
         }
 
-        if (OperationTypeEnum.values().any { it.label == mainValueText.takeLast(1) }) {
+        if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
         }
-        mainValueText.plus(OperationTypeEnum.PLUS.label)
+        mainValueText.plus(OperationType.PLUS.label)
         calculating.set(true)
     }
 
@@ -89,12 +101,12 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、-に入れ替える
      * 上記以外の場合、mainValueTextの末尾に-を追加
      */
-    fun tapMinus() {
+    private fun tapMinus() {
         if (mainValueText.takeLast(1) == ".") { return }
-        if (OperationTypeEnum.values().any { it.label == mainValueText.takeLast(1) }) {
+        if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
         }
-        mainValueText.plus(OperationTypeEnum.MINUS.label)
+        mainValueText.plus(OperationType.MINUS.label)
         calculating.set(true)
     }
 
@@ -106,19 +118,19 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、×に入れ替える
      * 上記以外の場合、mainValueTextの末尾に×を追加
      */
-    fun tapMultiple() {
+    private fun tapMultiple() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
-        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.label)) {
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
             return
         }
 
-        if (OperationTypeEnum.values().any { it.label == mainValueText.takeLast(1) }) {
+        if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
         }
-        mainValueText.plus(OperationTypeEnum.MULTIPLE.label)
+        mainValueText.plus(OperationType.MULTIPLE.label)
         calculating.set(true)
     }
 
@@ -130,19 +142,19 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、÷に入れ替える
      * 上記以外の場合、mainValueTextの末尾に÷を追加
      */
-    fun tapDivide() {
+    private fun tapDivide() {
         if (mainValueText.get().isNullOrBlank()) { return }
         if (mainValueText.takeLast(1) == ".") { return }
-        if (mainValueText.get() != null && mainValueText.get().equals(OperationTypeEnum.MINUS.label)) {
+        if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
             return
         }
 
-        if (OperationTypeEnum.values().any { it.label == mainValueText.takeLast(1) }) {
+        if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
         }
-        mainValueText.plus(OperationTypeEnum.DIVIDE.label)
+        mainValueText.plus(OperationType.DIVIDE.label)
         calculating.set(true)
     }
 

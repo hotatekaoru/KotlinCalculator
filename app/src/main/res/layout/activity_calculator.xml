@@ -3,16 +3,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <data>
+    <data class="ActivityCalculatorBinding">
         <variable
             name="viewmodel"
-            type="com.hotatekaoru.kotlincalculator.viewmodel.CalculatorViewModel" />
+            type="com.hotatekaoru.kotlincalculator.viewmodels.CalculatorViewModel" />
+
+        <variable
+            name="operationType"
+            type="com.hotatekaoru.kotlincalculator.enums.OperationType" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.CalculatorActivity">
+        tools:context=".views.CalculatorActivity">
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
@@ -226,32 +230,32 @@
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/divide"
-                        android:onClick="@{() -> viewmodel.tapDivide()}" />
+                        android:text="@{operationType.DIVIDE.label}"
+                        android:onClick="@{() -> viewmodel.tapOperation(operationType.DIVIDE)}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/multiple"
-                        android:onClick="@{() -> viewmodel.tapMultiple()}" />
+                        android:text="@{operationType.MULTIPLE.label}"
+                        android:onClick="@{() -> viewmodel.tapOperation(operationType.MULTIPLE)}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/minus"
-                        android:onClick="@{() -> viewmodel.tapMinus()}" />
+                        android:text="@{operationType.MINUS.label}"
+                        android:onClick="@{() -> viewmodel.tapOperation(operationType.MINUS)}" />
 
                     <Button
                         style="@style/KeyBoardFormulaButton"
                         android:layout_width="match_parent"
                         android:layout_height="0dp"
                         android:layout_weight="1"
-                        android:text="@string/plus"
-                        android:onClick="@{() -> viewmodel.tapPlus()}" />
+                        android:text="@{operationType.PLUS.label}"
+                        android:onClick="@{() -> viewmodel.tapOperation(operationType.PLUS)}" />
 
                 </LinearLayout>
 

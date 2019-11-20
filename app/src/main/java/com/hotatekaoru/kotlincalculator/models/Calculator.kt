@@ -1,6 +1,6 @@
-package com.hotatekaoru.kotlincalculator.model
+package com.hotatekaoru.kotlincalculator.models
 
-import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
+import com.hotatekaoru.kotlincalculator.enums.OperationType
 
 // 計算式に関するロジックは、Wikiに記載
 // https://github.com/hotatekaoru/KotlinCalculator/wiki/Logic-of-Calculator
@@ -9,7 +9,7 @@ class Calculator {
 
     private val numberStringList = ArrayList<String>()
     private val numberList = ArrayList<Double>()
-    private val operationList = ArrayList<OperationTypeEnum>()
+    private val operationList = ArrayList<OperationType>()
 
     fun call(formula: String): Double {
         this.formula = formula
@@ -69,10 +69,10 @@ class Calculator {
                 else -> {
                     // 最初にマイナスから始まる場合は、最初に0があたかもあるかのようにする。
                     // これにより、numberList[0]のあとに、operationList[0]がある状態を作る
-                    if (OperationTypeEnum.MINUS.label == char.toString() && numberStringList.isEmpty()) {
+                    if (OperationType.MINUS.label == char.toString() && numberStringList.isEmpty()) {
                         numberStringList.add("0")
                     }
-                    OperationTypeEnum.values().firstOrNull { it.label == char.toString() }?.let {
+                    OperationType.values().firstOrNull { it.label == char.toString() }?.let {
                         operationList.add(it)
                     }
                     isLastCharOperation = true
@@ -83,7 +83,7 @@ class Calculator {
 
     private fun convertToNumberList() {
         for ((index, string) in numberStringList.withIndex()) {
-            if (index == 0 || OperationTypeEnum.MINUS != operationList[index - 1]) {
+            if (index == 0 || OperationType.MINUS != operationList[index - 1]) {
                 numberList.add(string.toDouble())
             } else {
                 numberList.add(string.toDouble() * -1)
@@ -93,7 +93,7 @@ class Calculator {
 
     private fun calcMultiplicationAndDivision() {
         for ((index, operation) in operationList.withIndex()) {
-            if (OperationTypeEnum.isPlusOrMinus(operation)) { continue }
+            if (OperationType.isPlusOrMinus(operation)) { continue }
 
             val value = operation.calc(numberList[index], numberList[index + 1])
             numberList[index] = 0.0

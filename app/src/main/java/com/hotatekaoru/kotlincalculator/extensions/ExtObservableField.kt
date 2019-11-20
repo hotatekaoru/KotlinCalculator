@@ -1,4 +1,4 @@
-package com.hotatekaoru.kotlincalculator.extension
+package com.hotatekaoru.kotlincalculator.extensions
 
 import androidx.databinding.ObservableField
 
