@@ -2,6 +2,8 @@ package com.hotatekaoru.kotlincalculator.model
 
 import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
 
+// 計算式に関するロジックは、Wikiに記載
+// https://github.com/hotatekaoru/KotlinCalculator/wiki/Logic-of-Calculator
 class Calculator(private val formula: String) {
     private val numberStringList = ArrayList<String>()
     private val numberList = ArrayList<Double>()
