@@ -1,13 +1,13 @@
-package com.hotatekaoru.kotlincalculator.viewmodel
+package com.hotatekaoru.kotlincalculator.viewmodels
 
 import androidx.databinding.ObservableBoolean
 import androidx.databinding.ObservableField
 import androidx.lifecycle.ViewModel
-import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
-import com.hotatekaoru.kotlincalculator.extension.minusLastCharacter
-import com.hotatekaoru.kotlincalculator.extension.plus
-import com.hotatekaoru.kotlincalculator.extension.takeLast
-import com.hotatekaoru.kotlincalculator.model.Calculator
+import com.hotatekaoru.kotlincalculator.enums.OperationTypeEnum
+import com.hotatekaoru.kotlincalculator.extensions.minusLastCharacter
+import com.hotatekaoru.kotlincalculator.extensions.plus
+import com.hotatekaoru.kotlincalculator.extensions.takeLast
+import com.hotatekaoru.kotlincalculator.models.Calculator
 
 class CalculatorViewModel : ViewModel() {
 

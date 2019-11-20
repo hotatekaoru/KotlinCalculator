@@ -1,4 +1,4 @@
-package com.hotatekaoru.kotlincalculator.viewmodel
+package com.hotatekaoru.kotlincalculator.viewmodels
 
 import org.junit.Before
 import org.junit.Test

@@ -1,6 +1,6 @@
-package com.hotatekaoru.kotlincalculator.model
+package com.hotatekaoru.kotlincalculator.models
 
-import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
+import com.hotatekaoru.kotlincalculator.enums.OperationTypeEnum
 
 // 計算式に関するロジックは、Wikiに記載
 // https://github.com/hotatekaoru/KotlinCalculator/wiki/Logic-of-Calculator

@@ -1,4 +1,4 @@
-package com.hotatekaoru.kotlincalculator.view
+package com.hotatekaoru.kotlincalculator.views
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -6,7 +6,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProviders
 import com.hotatekaoru.kotlincalculator.R
 import com.hotatekaoru.kotlincalculator.databinding.ActivityCalculatorBinding
-import com.hotatekaoru.kotlincalculator.viewmodel.CalculatorViewModel
+import com.hotatekaoru.kotlincalculator.viewmodels.CalculatorViewModel
 
 class CalculatorActivity : AppCompatActivity() {
 

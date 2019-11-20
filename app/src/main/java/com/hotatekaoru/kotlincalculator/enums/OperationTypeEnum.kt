@@ -1,4 +1,4 @@
-package com.hotatekaoru.kotlincalculator.enum
+package com.hotatekaoru.kotlincalculator.enums
 
 enum class OperationTypeEnum(val label: String) {
     PLUS("+") { override fun calc(x: Double, y: Double): Double = x + y },
