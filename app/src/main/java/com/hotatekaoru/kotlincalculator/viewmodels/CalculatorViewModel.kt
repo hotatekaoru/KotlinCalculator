@@ -7,6 +7,7 @@ import com.hotatekaoru.kotlincalculator.enums.OperationType
 import com.hotatekaoru.kotlincalculator.extensions.minusLastCharacter
 import com.hotatekaoru.kotlincalculator.extensions.plus
 import com.hotatekaoru.kotlincalculator.extensions.takeLast
+import com.hotatekaoru.kotlincalculator.models.CalculateValueFormatter
 import com.hotatekaoru.kotlincalculator.models.Calculator
 
 class CalculatorViewModel : ViewModel() {
@@ -175,16 +176,17 @@ class CalculatorViewModel : ViewModel() {
         if (mainValueText.get().isNullOrBlank() || !calculating.get()) { return }
 
         calculating.set(false)
-        mainValueText.set(calculateValue().toString())
+        mainValueText.set(calculateValue())
         supplementaryValueText.set("")
     }
 
-    private fun calculateValue(): Double {
+    private fun calculateValue(): String {
         mainValueText.get()?.let {
-            return Calculator().call(it)
+            val resultValue = Calculator().call(it)
+            return CalculateValueFormatter().call(resultValue)
         }
 
         // TODO: Exceptionをthrowするかどうかは後で考える
-        return 0.0
+        return "0"
     }
 }
