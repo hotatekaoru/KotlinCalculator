@@ -4,12 +4,16 @@ import com.hotatekaoru.kotlincalculator.enum.OperationTypeEnum
 
 // 計算式に関するロジックは、Wikiに記載
 // https://github.com/hotatekaoru/KotlinCalculator/wiki/Logic-of-Calculator
-class Calculator(private val formula: String) {
+class Calculator {
+    private lateinit var formula: String
+
     private val numberStringList = ArrayList<String>()
     private val numberList = ArrayList<Double>()
     private val operationList = ArrayList<OperationTypeEnum>()
 
-    fun call(): Double {
+    fun call(formula: String): Double {
+        this.formula = formula
+
         // 初期化する
         init()
 

@@ -169,7 +169,7 @@ class CalculatorViewModel : ViewModel() {
 
     private fun calculateValue(): Double {
         mainValueText.get()?.let {
-            return Calculator(it).call()
+            return Calculator().call(it)
         }
 
         // TODO: Exceptionをthrowするかどうかは後で考える
