@@ -10,7 +10,7 @@
 
         <variable
             name="operationType"
-            type="com.hotatekaoru.kotlincalculator.enums.OperationTypeEnum" />
+            type="com.hotatekaoru.kotlincalculator.enums.OperationType" />
     </data>
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout

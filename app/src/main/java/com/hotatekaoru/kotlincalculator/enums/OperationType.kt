@@ -1,13 +1,13 @@
 package com.hotatekaoru.kotlincalculator.enums
 
-enum class OperationTypeEnum(val label: String) {
+enum class OperationType(val label: String) {
     PLUS("+") { override fun calc(x: Double, y: Double): Double = x + y },
     MINUS("-") { override fun calc(x: Double, y: Double): Double = x - y },
     MULTIPLE("×") { override fun calc(x: Double, y: Double): Double = x * y },
     DIVIDE("÷") { override fun calc(x: Double, y: Double): Double = x / y };
 
     companion object {
-        fun isPlusOrMinus(enum: OperationTypeEnum): Boolean {
+        fun isPlusOrMinus(enum: OperationType): Boolean {
             return PLUS == enum || MINUS == enum
         }
     }
