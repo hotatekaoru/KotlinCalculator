@@ -43,6 +43,7 @@ class CalculatorViewModel : ViewModel() {
             mainValueText.set(number.toString())
             calculating.set(true)
         }
+        supplementaryValueText.set(calculateValue())
     }
 
     /**
@@ -64,12 +65,14 @@ class CalculatorViewModel : ViewModel() {
      * 四則演算子をタップされた際の処理
      */
     fun tapOperation(operationType: OperationType) {
-        when (operationType) {
+        val valid = when (operationType) {
             OperationType.PLUS -> { tapPlus() }
             OperationType.MINUS -> { tapMinus() }
             OperationType.MULTIPLE -> { tapMultiple() }
             OperationType.DIVIDE -> { tapDivide() }
         }
+
+        if (valid) { supplementaryValueText.set(calculateValue()) }
     }
 
     /**
@@ -80,13 +83,13 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、+に入れ替える
      * 上記以外の場合、mainValueTextの末尾に+を追加
      */
-    private fun tapPlus() {
-        if (mainValueText.get().isNullOrBlank()) { return }
-        if (mainValueText.takeLast(1) == ".") { return }
+    private fun tapPlus(): Boolean {
+        if (mainValueText.get().isNullOrBlank()) { return false }
+        if (mainValueText.takeLast(1) == ".") { return false }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
-            return
+            return false
         }
 
         if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
@@ -94,6 +97,7 @@ class CalculatorViewModel : ViewModel() {
         }
         mainValueText.plus(OperationType.PLUS.label)
         calculating.set(true)
+        return true
     }
 
     /**
@@ -102,13 +106,14 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、-に入れ替える
      * 上記以外の場合、mainValueTextの末尾に-を追加
      */
-    private fun tapMinus() {
-        if (mainValueText.takeLast(1) == ".") { return }
+    private fun tapMinus(): Boolean {
+        if (mainValueText.takeLast(1) == ".") { return false }
         if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
             mainValueText.minusLastCharacter()
         }
         mainValueText.plus(OperationType.MINUS.label)
         calculating.set(true)
+        return true
     }
 
     /**
@@ -119,13 +124,13 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、×に入れ替える
      * 上記以外の場合、mainValueTextの末尾に×を追加
      */
-    private fun tapMultiple() {
-        if (mainValueText.get().isNullOrBlank()) { return }
-        if (mainValueText.takeLast(1) == ".") { return }
+    private fun tapMultiple(): Boolean {
+        if (mainValueText.get().isNullOrBlank()) { return false }
+        if (mainValueText.takeLast(1) == ".") { return false }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
-            return
+            return false
         }
 
         if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
@@ -133,6 +138,7 @@ class CalculatorViewModel : ViewModel() {
         }
         mainValueText.plus(OperationType.MULTIPLE.label)
         calculating.set(true)
+        return true
     }
 
     /**
@@ -143,13 +149,13 @@ class CalculatorViewModel : ViewModel() {
      * mainValueTextの末尾が四則演算子の場合、÷に入れ替える
      * 上記以外の場合、mainValueTextの末尾に÷を追加
      */
-    private fun tapDivide() {
-        if (mainValueText.get().isNullOrBlank()) { return }
-        if (mainValueText.takeLast(1) == ".") { return }
+    private fun tapDivide(): Boolean {
+        if (mainValueText.get().isNullOrBlank()) { return false }
+        if (mainValueText.takeLast(1) == ".") { return false }
         if (mainValueText.get() != null && mainValueText.get().equals(OperationType.MINUS.label)) {
             mainValueText.set("")
             calculating.set(false)
-            return
+            return false
         }
 
         if (OperationType.values().any { it.label == mainValueText.takeLast(1) }) {
@@ -157,11 +163,13 @@ class CalculatorViewModel : ViewModel() {
         }
         mainValueText.plus(OperationType.DIVIDE.label)
         calculating.set(true)
+        return true
     }
 
     fun tapClear() {
         if (calculating.get()) {
             mainValueText.minusLastCharacter()
+            supplementaryValueText.set(calculateValue())
         } else {
             mainValueText.set("")
         }

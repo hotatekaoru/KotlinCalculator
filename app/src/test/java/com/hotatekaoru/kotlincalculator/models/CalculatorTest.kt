@@ -47,4 +47,10 @@ class CalculatorTest {
         val value = calculator.call("1÷0")
         Assertions.assertEquals(Double.POSITIVE_INFINITY, value)
     }
+
+    @Test
+    fun `Calculator() 式の最後が演算子の場合、最後の演算子を考慮に入れず計算されること`() {
+        val value = calculator.call("1+2×3-")
+        Assertions.assertEquals(7.0, value)
+    }
 }
