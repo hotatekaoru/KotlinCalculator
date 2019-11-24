@@ -12,6 +12,7 @@ class Calculator {
     private val operationList = ArrayList<OperationType>()
 
     fun call(formula: String): Double {
+        if (formula.isEmpty()) { return 0.0 }
         this.formula = formula
 
         // 初期化する
@@ -78,6 +79,11 @@ class Calculator {
                     isLastCharOperation = true
                 }
             }
+        }
+
+        // 最後が演算子で終わる場合は、最後の演算子を計算式に入れない
+        if (numberStringList.size == operationList.size) {
+            operationList.removeAt(operationList.size - 1)
         }
     }
 
